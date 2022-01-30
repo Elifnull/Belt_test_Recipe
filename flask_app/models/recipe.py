@@ -24,3 +24,20 @@ class Recipe:
     @classmethod
     def update_recipe(cls,data):
         query="UPDATE recipes SET name = %(name)s, description = %(description)s, instructions = %(instructions)s, date_made =%(date_made)s, under_30 = %(under_30)s, updated_at = Now() WHERE id = %(id)s;"
+        return connectToMySQL(cls.db).query_db(query,data)
+    
+    @classmethod
+    def get_all_recipe(cls):
+        query="SELECT * FROM recipes"
+        result = connectToMySQL(cls.db).query_db(query)
+        print(result)
+        all_recipes = []
+        for d in result:
+            all_recipes.append(cls(d))
+            print(d)
+        return all_recipes
+    
+    @classmethod
+    def delete(cls,data):
+        query="DELETE FROM recipes WHERE id = %(id)s"
+        return connectToMySQL(cls.db).query_db(query, data)
