@@ -19,6 +19,11 @@ class User:
         self.recipes = []
 
     @classmethod
+    def save_user(cls,data):
+        query="INSERT INTO users (first_name, last_name, email, password, created_at) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s, Now();"
+        return connectToMySQL(cls.db).query_db(query,data)
+        
+    @classmethod
     def get_all_recipies_users(cls):
         query="SELECT * FROM users LEFT JOIN recipes ON user.id = recipes.user_id"
         result = connectToMySQL(cls.db).query_db(query)

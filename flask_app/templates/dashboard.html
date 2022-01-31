@@ -12,7 +12,7 @@
     </head>
     <body>
         <nav class="d-flex justify-content-between align-items-center mx-auto p-2 bg-dark">
-            <h1 class="text-center text-success">Welcome {{}}</h1>
+            <h1 class="text-center text-success">Welcome {{username}}</h1>
             <div class="d-flex col-4 justify-content-around">
                 <a href="/dashboard" class="btn btn-danger">Add New Recipe</a>
                 <a href="/logout" class="btn btn-primary">Logout</a>
@@ -29,13 +29,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                    {{insert for loop through recepie db}}
+                    {% for recipe in all_recipes:}
                 <tr>
                     <td>{{recipe.name}}</td>
-                    <td>{{time_under_30_value}}</td>
-                    <td><a href="/recipe/{{recipe.id}}">View Instructions</a> | <a href="recipe/edit/{{recipe.id}}">Edit</a> | <a href="recipe/delete/{{recipe.id}}">Delete</a></td>
-                </tr>
-                    {end for loop here}
+                    <td>{{recipe.under_30}}</td>
+                    <td><a href="/recipe/{{recipe.id}}">View Instructions</a> 
+                        {% if recipe.user_id == userid %}
+                        | <a href="recipe/edit/{{recipe.id}}">Edit</a> | <a href="recipe/delete/{{recipe.id}}">Delete</a></td>
+                        {%endif%}
+                </tr>   
+                    {%endfor%}
                 </tbody>
             </table>
         </main>
