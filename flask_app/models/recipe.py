@@ -66,7 +66,7 @@ class Recipe:
         if recipe["date_made"] == "":
             flash("Date made need to be filled out", "recipe")
             is_valid = False
-        if recipe["under_30"] == False:
+        if recipe["under_30"] == "False":
             flash("Is time under 30 min? or not?", "recipe")
             is_valid = False
         return is_valid
