@@ -52,7 +52,7 @@ class Recipe:
     @staticmethod
     def validate_recipe(recipe):
         is_valid = True
-        print(recipe["inst"])
+        print(recipe["under_30"])
         print(len(recipe["inst"]))
         if len(recipe["name"]) < 3:
             flash("recipe name is to short, needs to be more than 3 characters long", "recipe")
@@ -66,7 +66,7 @@ class Recipe:
         if recipe["date_made"] == "":
             flash("Date made need to be filled out", "recipe")
             is_valid = False
-        if recipe["under_30"] == "":
+        if recipe["under_30"] == False:
             flash("Is time under 30 min? or not?", "recipe")
             is_valid = False
         return is_valid
