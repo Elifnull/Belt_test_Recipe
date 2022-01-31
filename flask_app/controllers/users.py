@@ -29,7 +29,16 @@ def create_user():
 
 @app.route("/login", methods=["POST"])
 def login():
-    pass
+    account = User.get_with_email(request.form)
+    if not account :
+        flash("invalid Email/Passowrd","login")
+        return redirect("/")
+    if not bcrypt.check_password_hash(account.password, request.form['password']):
+        flash("Invalid Password","login")
+        return redirect("/")
+    session["user_id"] = account.id
+    session["first_name"] = account.first_name
+    return redirect("/dashboard")
 
 @app.route("/dashboard")
 def dashboard():
