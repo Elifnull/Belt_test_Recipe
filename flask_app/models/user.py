@@ -20,18 +20,19 @@ class User:
 
     @classmethod
     def save_user(cls,data):
-        query="INSERT INTO users (first_name, last_name, email, password, created_at) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s, Now();"
+        query="INSERT INTO users (first_name, last_name, email, password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s);"
         return connectToMySQL(cls.db).query_db(query,data)
-        
+
     @classmethod
     def get_all_recipies_users(cls):
-        query="SELECT * FROM users LEFT JOIN recipes ON user.id = recipes.user_id"
+        query="SELECT * FROM users LEFT JOIN recipes ON user.id = recipes.user_id;"
         result = connectToMySQL(cls.db).query_db(query)
         return result
     @classmethod
-    def get_with_email(cls,data):
-        query="SELECT * FROM users WHERE email = %(email)s"
-        result = connectToMySQL(cls.db).query_db(query,data)
+    def get_with_email(cls, data):
+        query="SELECT * FROM users WHERE email = %(email)s;"
+        result = connectToMySQL(cls.db).query_db(query, data)
+        print(result)
         if len(result) < 1:
             return False
         user = (cls(result[0]))

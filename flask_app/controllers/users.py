@@ -21,7 +21,7 @@ def create_user():
         "password":bcrypt.generate_password_hash(request.form['password'])
     }
     User.save_user(data)
-    account = User.get_with_email(request.form["email"])
+    account = User.get_with_email(request.form)
     session["user_id"] = account.id
     session["first_name"] = account.first_name
     print(account.id)
@@ -36,7 +36,7 @@ def dashboard():
     if "user_id" not in session:
         return redirect('/logout')
     first_name = session["first_name"]
-    recipes_all = Recipe.get_all_recipe
+    recipes_all = Recipe.get_all_recipe()
     return render_template("dashboard.html", username= first_name, userid = session["user_id"], all_recipes = recipes_all)
 
 
